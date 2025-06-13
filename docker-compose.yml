@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:15
+    
+    environment:
+      POSTGRES_DB: vocal_db
+      POSTGRES_USER: vocal_user
+      POSTGRES_PASSWORD: Mrinal@31
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+
+  backend:
+    build: 
+      context: .
+      
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://vocal_user:Mrinal%4031@db:5432/vocal_db
+      - SECRET_KEY=your-super-secret-key
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    restart: always
+
+  frontend:
+    build: 
+      context: ../vocal-clone-frontend
+      
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  db_data:
