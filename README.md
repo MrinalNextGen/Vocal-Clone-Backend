@@ -70,6 +70,28 @@ A brief overview of the available API endpoints:
 | `GET`  | `/api/blogs/favorites`       | Get all favorite blogs.        |
 
 
+Run Your Fullstack App with Docker
+1. Clone Your Repository
+bash
+git clone https://github.com/MrinalNextGen/vocal-clone.git
+cd vocal-clone
+2. Configure Environment Variables
+Create .env in the backend folder (vocal-clone/backend/.env):
+
+DATABASE_URL=postgresql://vocal_user:yourpassword@db:5432/vocal_db
+SECRET_KEY=your-super-secret-key
+3. Start All Services
+bash
+docker-compose up --build
+This will:
+
+Build backend (Flask) and frontend (React) images
+
+Start PostgreSQL database
+
+Create Docker network for inter-container communication
+
+Migrate database schema automatically
 ## 📄 License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
